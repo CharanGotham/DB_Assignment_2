@@ -9,7 +9,7 @@
 #include <fstream>
 
 #include "b+_trees.h"
-//#include "b+_trees.cc"
+#include "b+_tree_node.h"
 #include "query_processor.h"
 #include "query_processor.cc"
 
@@ -21,6 +21,8 @@ int main(int argc, char* argv[]) {
 	for (int i = 1; i < argc; ++i) {
 		cout << argv[i] << endl;
 	}
+	cout << endl;
+
 	int block_size = 5;
 	BTree b_tree(block_size);
 	ifstream input_file(argv[1]);
@@ -28,6 +30,7 @@ int main(int argc, char* argv[]) {
 	while (getline(input_file, query)) {
 		cout << query << endl;
 		ProcessQuery(b_tree, query);
+		cout << endl;
 	}
 	return 0;
 }

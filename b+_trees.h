@@ -11,20 +11,10 @@
 #include <iostream>
 #include <vector>
 
+#include "b+_tree_node.h"
+
 using namespace std;
 
-class TreeNode {
-
-	std::vector<int> keys;
-	std::vector<TreeNode*> child_pointers;
-	int degree; // number of keys can be filled
-	int curent_degree; // Number of keys filled == keys.size()
-
-public:
-	TreeNode(int val, bool leaf);
-	void SplitNode(TreeNode* child);
-
-};
 
 class BTree {
 
@@ -46,6 +36,25 @@ public:
 };
 
 void BTree::Insert(int element_to_insert) {
+	if (root == NULL) {
+		root = new TreeNode(degree, true); // new node creation.
+		cout << "element " << element_to_insert << " pushed" << endl;
+		root->keys.push_back(element_to_insert);
+		root->curent_degree = 1;
+	} else if (root->curent_degree == degree) {
+		TreeNode* new_root = new TreeNode(degree, false);
+		new_root->child_pointers.push_back(root);
+		new_root->keys[0] = root->keys[degree / 2];
+		new_root->curent_degree = 1;
+		new_root->SplitNode(new_root, root);
+		if (element_to_insert <= new_root->keys[0])
+			new_root->child_pointers[0]->InsertNonFull(element_to_insert);
+		else
+			new_root->child_pointers[1]->InsertNonFull(element_to_insert);
+		root = new_root;
+	} else {
+		root->InsertNonFull(element_to_insert);
+	}
 	return;
 }
 
