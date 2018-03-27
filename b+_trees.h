@@ -38,11 +38,29 @@ public:
 	}
 
 	void Insert(int x);
-	void Find(int x);
+	bool Find(int x);
 	int Count(int x);
-	int Range(int x, int y);
+	void Range(int x, int y);
 	void Delete(int x);
 
 };
+
+void BTree::Insert(int element_to_insert) {
+	return;
+}
+
+bool BTree::Find(int elelment_to_find) {
+	return true;
+}
+
+int BTree::Count(int element_count) {
+	cout << "count working" << endl;
+	element_count = 0;
+	return element_count;
+}
+
+void BTree::Range(int start, int end) {
+	cout << "range working" << endl;
+}
 
 #endif /* B__TREES_H_ */

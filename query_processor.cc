@@ -17,25 +17,26 @@ using namespace std;
 void ProcessQuery(BTree b_tree, string query) {
 	if (query[0] == 'I') {
 		query.erase(query.begin(), query.begin() + 7);
-		cout << query << endl;
 		int element_to_insert = GetNumber(query);
-//		b_tree.Insert(element_to_insert);
-	} else if (query[0] == 'F') {
+		b_tree.Insert(element_to_insert);
+	}
+	else if (query[0] == 'F') {
 		query.erase(query.begin(), query.begin() + 5);
-		cout << query << endl;
 		int element_to_find = GetNumber(query);
-//		b_tree.Find(element_to_find);
-	} else if (query[0] == 'C') {
+		if(b_tree.Find(element_to_find)) cout << "YES" << endl;
+	}
+	else if (query[0] == 'C') {
 		query.erase(query.begin(), query.begin() + 6);
-		cout << query << endl;
 		int element_count = GetNumber(query);
-//		b_tree.Count(element_count);
-	} else if (query[0] == 'R') {
+		cout << b_tree.Count(element_count) << endl;
+	}
+	else if (query[0] == 'R') {
 		query.erase(query.begin(), query.begin() + 6);
-		cout << query << endl;
 		vector<int> range;
 		GetRange(range, query);
-//		b_tree.Range(range[0], range[1]);
+		b_tree.Range(range[0], range[1]);
+	} else {
+		cout << "Invalid Query" << endl;
 	}
 }
 
@@ -62,4 +63,5 @@ void GetRange(vector<int> &range, string query) {
 	}
 	range.push_back(number);
 }
+
 

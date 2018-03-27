@@ -9,7 +9,7 @@
 #include <fstream>
 
 #include "b+_trees.h"
-#include "b+_trees.cc"
+//#include "b+_trees.cc"
 #include "query_processor.h"
 #include "query_processor.cc"
 
