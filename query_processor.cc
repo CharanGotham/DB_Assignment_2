@@ -10,31 +10,34 @@
 
 #include "query_processor.h"
 #include "b+_trees.h"
-//#include "b+_trees.cc"
 
 using namespace std;
 
-void ProcessQuery(BTree b_tree, string query) {
+void ProcessQuery(BTree *b_tree, string query) {
 	if (query[0] == 'I') {
 		query.erase(query.begin(), query.begin() + 7);
 		int element_to_insert = GetNumber(query);
-		b_tree.Insert(element_to_insert);
+		b_tree->Insert(element_to_insert);
 	}
 	else if (query[0] == 'F') {
 		query.erase(query.begin(), query.begin() + 5);
 		int element_to_find = GetNumber(query);
-		if(b_tree.Find(element_to_find)) cout << "YES" << endl;
+
+		(b_tree->AccessRoot())->Traverse();
+		cout << endl;
+		if((b_tree->AccessRoot())->Find(element_to_find)) cout << "YES" << endl;
+		else cout << "NO" << endl;
 	}
 	else if (query[0] == 'C') {
 		query.erase(query.begin(), query.begin() + 6);
 		int element_count = GetNumber(query);
-		cout << b_tree.Count(element_count) << endl;
+		cout << b_tree->Count(element_count) << endl;
 	}
 	else if (query[0] == 'R') {
 		query.erase(query.begin(), query.begin() + 6);
 		vector<int> range;
 		GetRange(range, query);
-		b_tree.Range(range[0], range[1]);
+		b_tree->Range(range[0], range[1]);
 	} else {
 		cout << "Invalid Query" << endl;
 	}

@@ -14,7 +14,7 @@
 
 using namespace std;
 
-void ProcessQuery(BTree b_tree, string query);
+void ProcessQuery(BTree *b_tree, string query);
 
 int GetNumber(string query);
 

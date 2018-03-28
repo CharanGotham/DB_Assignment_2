@@ -11,9 +11,26 @@
 #include <iostream>
 #include <vector>
 
-#include "b+_tree_node.h"
 
 using namespace std;
+class TreeNode {
+
+	std::vector<int> keys;
+	std::vector<TreeNode*> child_pointers;
+	int degree; // number of keys can be filled
+	int current_degree; // Number of keys filled == keys.size()
+	bool leaf;
+
+public:
+	TreeNode(int _degree, bool _leaf);
+	void SplitNode(TreeNode* parent, TreeNode* child);
+	void InsertNonFull(int k);
+
+	void Traverse();
+	bool Find(int x);
+
+	friend class BTree;
+};
 
 
 class BTree {
@@ -23,53 +40,25 @@ class BTree {
 
 public:
 	BTree(int _degree) {
-		root = NULL;
-		degree = _degree;
+		this->root = NULL;
+		this->degree = _degree;
 	}
 
+	void PrintPrivateVariables() {
+		if (this->root == NULL) cout << "root is NULL" << endl;
+		else cout << "root is filled" << endl;
+		cout << "degree = " << degree << endl;
+	}
+
+	TreeNode* AccessRoot() { return root; }
+
+	int AccessDegree() { return degree; }
+
 	void Insert(int x);
-	bool Find(int x);
 	int Count(int x);
 	void Range(int x, int y);
 	void Delete(int x);
-
 };
 
-void BTree::Insert(int element_to_insert) {
-	if (root == NULL) {
-		root = new TreeNode(degree, true); // new node creation.
-		cout << "element " << element_to_insert << " pushed" << endl;
-		root->keys.push_back(element_to_insert);
-		root->curent_degree = 1;
-	} else if (root->curent_degree == degree) {
-		TreeNode* new_root = new TreeNode(degree, false);
-		new_root->child_pointers.push_back(root);
-		new_root->keys[0] = root->keys[degree / 2];
-		new_root->curent_degree = 1;
-		new_root->SplitNode(new_root, root);
-		if (element_to_insert <= new_root->keys[0])
-			new_root->child_pointers[0]->InsertNonFull(element_to_insert);
-		else
-			new_root->child_pointers[1]->InsertNonFull(element_to_insert);
-		root = new_root;
-	} else {
-		root->InsertNonFull(element_to_insert);
-	}
-	return;
-}
-
-bool BTree::Find(int elelment_to_find) {
-	return true;
-}
-
-int BTree::Count(int element_count) {
-	cout << "count working" << endl;
-	element_count = 0;
-	return element_count;
-}
-
-void BTree::Range(int start, int end) {
-	cout << "range working" << endl;
-}
 
 #endif /* B__TREES_H_ */
