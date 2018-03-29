@@ -23,11 +23,13 @@ class TreeNode {
 
 public:
 	TreeNode(int _degree, bool _leaf);
-	void SplitNode(int split_position, TreeNode* child);
-	void InsertNonFull(int k);
-
 	void Traverse();
+
+	void SplitChildNode(int split_position, TreeNode* child);
+	void InsertNonFull(int k);
 	bool Find(int x);
+	int Count(int x);
+	void Range(int x, int y);
 
 	friend class BTree;
 };
@@ -54,11 +56,13 @@ public:
 
 	int AccessDegree() { return degree; }
 
+	void Traverse() { if (root != NULL) root->Traverse(); }
+
 	void Insert(int x);
-	int Count(int x);
-	void Range(int x, int y);
 	void Delete(int x);
 };
+
+bool IsInRange(int x, int start, int end);
 
 
 #endif /* B__TREES_H_ */

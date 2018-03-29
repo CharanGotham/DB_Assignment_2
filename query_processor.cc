@@ -30,14 +30,14 @@ void ProcessQuery(BTree *b_tree, string query) {
 	}
 	else if (query[0] == 'C') {
 		query.erase(query.begin(), query.begin() + 6);
-		int element_count = GetNumber(query);
-		cout << b_tree->Count(element_count) << endl;
+		int count_element = GetNumber(query);
+		cout << (b_tree->AccessRoot())->Count(count_element) << endl;
 	}
 	else if (query[0] == 'R') {
 		query.erase(query.begin(), query.begin() + 6);
 		vector<int> range;
 		GetRange(range, query);
-		b_tree->Range(range[0], range[1]);
+		(b_tree->AccessRoot())->Range(range[0], range[1]);
 	} else {
 		cout << "Invalid Query" << endl;
 	}
