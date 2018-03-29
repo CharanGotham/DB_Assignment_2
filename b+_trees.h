@@ -23,7 +23,7 @@ class TreeNode {
 
 public:
 	TreeNode(int _degree, bool _leaf);
-	void SplitNode(TreeNode* parent, TreeNode* child);
+	void SplitNode(int split_position, TreeNode* child);
 	void InsertNonFull(int k);
 
 	void Traverse();

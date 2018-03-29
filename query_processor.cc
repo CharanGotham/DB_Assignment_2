@@ -50,12 +50,14 @@ int GetNumber(string query) {
 			number = (number * 10) + (query[i] - '0');
 		}
 	}
+	if (query[0] == '-') number *= -1;
 	return number;
 }
 
 void GetRange(vector<int> &range, string query) {
-	int flag = 0, number = 0;
+	int flag = 0, number = 0, tmp = 1;
 	for (int i = 0; i < query.length(); ++i) {
+		if (flag == 1 && query[i] == '-') tmp = -1;
 		if (int(query[i]) > 47 && int(query[i]) <= 57) {
 			number = (number * 10) + (query[i] - '0');
 		} else if (flag == 0) {
@@ -64,7 +66,8 @@ void GetRange(vector<int> &range, string query) {
 			flag = 1;
 		}
 	}
-	range.push_back(number);
+	range.push_back(number * tmp);
+	if (query[0] == '-') range[0] *= -1;
 }
 
 
