@@ -36,8 +36,12 @@ void BTree::Insert(int element_to_insert) {
 	} else {
 		if (root->current_degree == degree) {
 			TreeNode* new_root = new TreeNode(degree, false);
+			cout << "traverse 1" << endl;
+			root->Traverse();
+			cout << endl;
 			new_root->child_pointers.push_back(root);
 			new_root->SplitChildNode(0, root);
+			cout << "traverse 2" << endl;
 			new_root->Traverse();
 			cout << endl;
 
@@ -63,10 +67,9 @@ void TreeNode::SplitChildNode(int split_position, TreeNode* child) {
 		new_child_node->current_degree++;
 	}
 	if (!child->leaf) {
-		for (int i = 0; i <= child_size / 2; ++i) {
+		for (int i = (child_size / 2) + 1; i <= child_size; ++i) {
 			new_child_node->
-			child_pointers.push_back(child->
-					child_pointers[i + (child_size / 2)]);
+			child_pointers.push_back(child->child_pointers[i]);
 			child->child_pointers.pop_back();
 		}
 	}
